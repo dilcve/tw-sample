@@ -1,0 +1,2 @@
+include ':app', ':data', ':domain', ':data'
+rootProject.name='TW-Sample'
