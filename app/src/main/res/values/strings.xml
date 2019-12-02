@@ -3,5 +3,6 @@
     <string name="projects_title">Projects</string>
     <string name="tasks_title">Tasks</string>
     <string name="created_by">Created by %s \n%s</string>
+    <string name="generic_error">Oops Something went wrong!\nTap to retry.</string>
 
 </resources>

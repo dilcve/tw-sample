@@ -20,6 +20,8 @@ class ProjectViewModel @Inject constructor(
 
     private val loading = MutableLiveData<Boolean>()
 
+    private val error = MutableLiveData<Boolean>()
+
     init {
         loadProjects()
     }
@@ -28,8 +30,11 @@ class ProjectViewModel @Inject constructor(
 
     fun getLoadingLiveData(): LiveData<Boolean> = loading
 
-    private fun loadProjects() {
+    fun getErrorLiveData(): LiveData<Boolean> = error
+
+    fun loadProjects() {
         loading.value = true
+        error.value = false
         compositeDisposable.add(
             projectUseCase.loadProjects()
                 .subscribeOn(schedulerProvider.io())
@@ -40,6 +45,7 @@ class ProjectViewModel @Inject constructor(
                 }, {
                     //handle some error
                     loading.value = false
+                    error.value = true
                 })
         )
     }

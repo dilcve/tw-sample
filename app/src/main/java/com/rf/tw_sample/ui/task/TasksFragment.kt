@@ -55,12 +55,25 @@ class TasksFragment : Fragment(), Injectable {
 
         viewModel.loadTasksByProject(args.projectId)
 
+        binding.errorView.setOnClickListener {
+            viewModel.loadTasksByProject(args.projectId)
+        }
+        binding.errorMessage.setOnClickListener {
+            viewModel.loadTasksByProject(args.projectId)
+        }
+
         subscribe()
     }
 
     private fun subscribe() {
         viewModel.getTasksLiveData().observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
+        })
+
+        viewModel.getErrorLiveData().observe(viewLifecycleOwner, Observer {
+            if(it) {
+                binding.errorView.playAnimation()
+            }
         })
     }
 

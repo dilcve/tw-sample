@@ -20,12 +20,17 @@ class TasksViewModel @Inject constructor(
 
     private val loading = MutableLiveData<Boolean>()
 
+    private val error = MutableLiveData<Boolean>()
+
     fun getTasksLiveData(): LiveData<List<Task>> = tasks
 
     fun getLoadingLiveData(): LiveData<Boolean> = loading
 
+    fun getErrorLiveData(): LiveData<Boolean> = error
+
     fun loadTasksByProject(projectId: String) {
         loading.value = true
+        error.value = false
         compositeDisposable.add(
             taskUseCase.loadTasksByProject(projectId)
                 .subscribeOn(schedulerProvider.io())
@@ -36,6 +41,7 @@ class TasksViewModel @Inject constructor(
                 }, {
                     //handle some error
                     loading.value = false
+                    error.value = true
                 })
         )
     }

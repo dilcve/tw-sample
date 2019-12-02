@@ -55,12 +55,21 @@ class ProjectFragment : Fragment(), Injectable {
             adapter = this@ProjectFragment.adapter
         }
 
+        binding.errorView.setOnClickListener { viewModel.loadProjects() }
+        binding.errorMessage.setOnClickListener { viewModel.loadProjects() }
+
         subscribe()
     }
 
     private fun subscribe() {
         viewModel.getProjectsLiveData().observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
+        })
+
+        viewModel.getErrorLiveData().observe(viewLifecycleOwner, Observer {
+            if(it) {
+                binding.errorView.playAnimation()
+            }
         })
     }
 
