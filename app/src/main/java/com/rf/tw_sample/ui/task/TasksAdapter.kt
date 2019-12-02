@@ -1,13 +1,16 @@
 package com.rf.tw_sample.ui.task
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.rf.tw_sample.R
-import com.rf.tw_sample.databinding.ListItemTwoLinesWithImgBinding
+import com.rf.tw_sample.databinding.ListItemTaskBinding
+import com.rf.tw_sample.domain.entity.Priority
 import com.rf.tw_sample.domain.entity.Task
+import com.rf.tw_sample.util.toSimpleDateFormat
 
 class TasksAdapter(private val onItemClickedListener: (Task) -> Unit) :
     RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
@@ -20,7 +23,8 @@ class TasksAdapter(private val onItemClickedListener: (Task) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val binding = ListItemTwoLinesWithImgBinding.inflate(LayoutInflater.from(parent.context))
+        val binding =
+            ListItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(binding, onItemClickedListener)
     }
 
@@ -31,7 +35,7 @@ class TasksAdapter(private val onItemClickedListener: (Task) -> Unit) :
     override fun getItemCount(): Int = projectList.size
 
     class TaskViewHolder(
-        val binding: ListItemTwoLinesWithImgBinding,
+        val binding: ListItemTaskBinding,
         val listener: (Task) -> Unit
     ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -44,15 +48,27 @@ class TasksAdapter(private val onItemClickedListener: (Task) -> Unit) :
         fun bind(task: Task) {
             item = task
             binding.name.text = task.name
-            binding.description.text =
-                binding.name.context.getString(R.string.created_by, task.author, task.description)
-            Glide.with(binding.root.context)
-                .load(task.creatorAvatarUrl)
-                .placeholder(android.R.drawable.ic_menu_gallery)
-                .error(android.R.drawable.ic_delete)
-                .dontAnimate()
-                .into(binding.img)
+            binding.user.text = task.responsibleParty
+            binding.date.text = task.createdOn.toSimpleDateFormat()
 
+            binding.tag.apply {
+                if (task.tags.isNotEmpty()) {
+                    visibility = View.VISIBLE
+                    val tag = task.tags.first()
+                    text = tag.name
+                    backgroundTintList = ColorStateList.valueOf(Color.parseColor(tag.color))
+                } else {
+                    visibility = View.GONE
+                }
+            }
+
+            binding.priority.visibility = View.VISIBLE
+            when (task.priority) {
+                Priority.Low -> binding.priority.setImageResource(R.color.priority_low)
+                Priority.Medium -> binding.priority.setImageResource(R.color.priority_medium)
+                Priority.High -> binding.priority.setImageResource(R.color.priority_high)
+                Priority.None -> binding.priority.visibility = View.GONE
+            }
         }
 
         override fun onClick(v: View?) {

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_default">10dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
     <dimen name="margin_small">5dp</dimen>
+    <dimen name="margin_micro">2.5dp</dimen>
     <dimen name="project_image_size">70dp</dimen>
+    <dimen name="divider_size">0.5dp</dimen>
 </resources>

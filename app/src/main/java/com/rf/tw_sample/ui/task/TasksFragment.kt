@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rf.tw_sample.databinding.FragmentTaskBinding
 import com.rf.tw_sample.di.Injectable
+import com.rf.tw_sample.ui.commom.SimpleListDivider
 import javax.inject.Inject
 
 class TasksFragment : Fragment(), Injectable {
@@ -45,11 +46,12 @@ class TasksFragment : Fragment(), Injectable {
         binding.viewModel
 
         adapter = TasksAdapter {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it.description, Toast.LENGTH_SHORT).show()
         }
 
         binding.list.apply {
             layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(SimpleListDivider())
             adapter = this@TasksFragment.adapter
         }
 

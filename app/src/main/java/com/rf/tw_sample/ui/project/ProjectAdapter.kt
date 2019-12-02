@@ -1,11 +1,12 @@
 package com.rf.tw_sample.ui.project
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.rf.tw_sample.databinding.ListItemTwoLinesWithImgBinding
+import com.rf.tw_sample.R
+import com.rf.tw_sample.databinding.ListItemProjectBinding
 import com.rf.tw_sample.domain.entity.Project
 
 class ProjectAdapter(private val onItemClickedListener: (Project) -> Unit) :
@@ -19,7 +20,7 @@ class ProjectAdapter(private val onItemClickedListener: (Project) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
-        val binding = ListItemTwoLinesWithImgBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = ListItemProjectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProjectViewHolder(binding, onItemClickedListener)
     }
 
@@ -30,7 +31,7 @@ class ProjectAdapter(private val onItemClickedListener: (Project) -> Unit) :
     override fun getItemCount(): Int = projectList.size
 
     class ProjectViewHolder(
-        val binding: ListItemTwoLinesWithImgBinding,
+        val binding: ListItemProjectBinding,
         val listener: (Project) -> Unit
     ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -43,14 +44,8 @@ class ProjectAdapter(private val onItemClickedListener: (Project) -> Unit) :
         fun bind(project: Project) {
             item = project
             binding.name.text = project.name
-            binding.description.text = project.description
-            Glide.with(binding.root.context)
-                .load(project.logo)
-                .placeholder(android.R.drawable.ic_menu_gallery)
-                .error(android.R.drawable.ic_delete)
-                .dontAnimate()
-                .into(binding.img)
-
+            binding.name.compoundDrawableTintList =
+                ColorStateList.valueOf(binding.root.context.getColor(if (project.starred) R.color.starred else R.color.not_starred))
         }
 
         override fun onClick(v: View?) {

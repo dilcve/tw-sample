@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rf.tw_sample.databinding.FragmentProjectBinding
 import com.rf.tw_sample.di.Injectable
+import com.rf.tw_sample.ui.commom.SimpleListDivider
 import com.rf.tw_sample.util.AppViewModelFactory
 import javax.inject.Inject
 
@@ -52,6 +53,7 @@ class ProjectFragment : Fragment(), Injectable {
 
         binding.list.apply {
             layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(SimpleListDivider())
             adapter = this@ProjectFragment.adapter
         }
 

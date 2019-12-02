@@ -39,4 +39,4 @@ data class ProjectResponse(
 )
 
 fun ProjectResponse.mapToEntity() =
-    Project(this.id, this.name, this.description, this.logo)
+    Project(this.id, this.name, this.starred)

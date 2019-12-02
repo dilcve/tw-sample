@@ -1,6 +1,8 @@
 package com.rf.tw_sample.data.response
 
 import com.google.gson.annotations.SerializedName
+import com.rf.tw_sample.domain.entity.Priority
+import com.rf.tw_sample.domain.entity.Tag
 import com.rf.tw_sample.domain.entity.Task
 
 data class TasksResponse(
@@ -24,18 +26,45 @@ data class TaskResponse(
     val description: String = "",
     @SerializedName("due-date")
     val dueDate: String = "",
-    @SerializedName("responsible-party-firstname")
-    val responsiblePartyFirstname: String = "",
+    @SerializedName("responsible-party-names")
+    val responsiblePartyName: String = "",
     @SerializedName("tasklist-private")
     val isPrivate: Boolean = false,
     @SerializedName("todo-list-name")
-    val name: String = ""
+    val name: String = "",
+    @SerializedName("priority")
+    val priority: String = "",
+    @SerializedName("tags")
+    val tags: List<TagResponse> = listOf()
+
 )
+
+data class TagResponse(
+    val id: Int,
+    val name: String,
+    val color: String
+)
+
+fun TagResponse.mapToEntity() =
+    Tag(
+        id = this.id,
+        name = this.name,
+        color = this.color
+    )
 
 fun TaskResponse.mapToEntity() =
     Task(
-        this.name,
-        this.description,
-        "${this.creatorFirstName} ${this.creatorFirstName}",
-        this.creatorAvatarUrl
+        name = this.content,
+        description = this.description,
+        responsibleParty = this.responsiblePartyName,
+        createdOn = createdOn,
+        priority = when (this.priority.toLowerCase()) {
+            "low" -> Priority.Low
+            "medium" -> Priority.Medium
+            "high" -> Priority.High
+            else -> Priority.None
+        },
+        tags = tags.map {
+            it.mapToEntity()
+        }
     )

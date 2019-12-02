@@ -4,6 +4,17 @@ package com.rf.tw_sample.domain.entity
 data class Task(
     val name: String,
     val description: String,
-    val author: String,
-    val creatorAvatarUrl: String
+    val createdOn: String,
+    val responsibleParty: String,
+    val priority: Priority,
+    val tags: List<Tag>
 )
+
+data class Tag(val id: Int, val name: String, val color: String)
+
+sealed class Priority{
+    object Low: Priority()
+    object Medium: Priority()
+    object High: Priority()
+    object None: Priority()
+}

@@ -3,6 +3,7 @@ package com.rf.tw_sample
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.rf.tw_sample.domain.common.TestScheduleProvider
+import com.rf.tw_sample.domain.entity.Priority
 import com.rf.tw_sample.domain.entity.Task
 import com.rf.tw_sample.domain.usecase.TaskUseCase
 import com.rf.tw_sample.ui.task.TasksViewModel
@@ -38,18 +39,24 @@ class TasksViewModelTest {
         Task(
             "Task 1",
             "it's a task",
+            "2019-11-24T18:35:17Z",
             "John Doe",
-            "https://lh3.googleusercontent.com/Xn1X_pIDKMxzvIyqCDT6l0_G8-3IAHkQe-LhD4OTYAF7qBlRUmBcpiBkWQIswyDtLqM=s360-rw"
+            Priority.Low,
+            listOf()
         ), Task(
             "Task 2",
             "it's a task",
+            "2019-11-24T18:35:17Z",
             "John Doe",
-            "https://lh3.googleusercontent.com/Xn1X_pIDKMxzvIyqCDT6l0_G8-3IAHkQe-LhD4OTYAF7qBlRUmBcpiBkWQIswyDtLqM=s360-rw"
+            Priority.High,
+            listOf()
         ), Task(
             "Task 3",
             "it's a task",
+            "2019-11-24T18:35:17Z",
             "John Doe",
-            "https://lh3.googleusercontent.com/Xn1X_pIDKMxzvIyqCDT6l0_G8-3IAHkQe-LhD4OTYAF7qBlRUmBcpiBkWQIswyDtLqM=s360-rw"
+            Priority.Medium,
+            listOf()
         )
     )
 
@@ -74,5 +81,4 @@ class TasksViewModelTest {
         verify(loadingObserver).onChanged(false)
         verify(tasksObserver).onChanged(mockTaskList)
     }
-
 }
