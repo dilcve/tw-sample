@@ -1,4 +1,4 @@
-package com.rf.tw_sample.data
+package com.rf.tw_sample.data.repository.task
 
 import com.rf.tw_sample.data.api.ApiService
 import com.rf.tw_sample.data.repository.TaskRepositoryImpl

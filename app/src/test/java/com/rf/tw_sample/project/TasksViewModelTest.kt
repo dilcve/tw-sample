@@ -1,4 +1,4 @@
-package com.rf.tw_sample
+package com.rf.tw_sample.project
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer

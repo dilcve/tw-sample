@@ -1,3 +1,5 @@
+package domain.usecase.project
+
 import com.rf.tw_sample.domain.entity.Project
 import com.rf.tw_sample.domain.repository.ProjectRepository
 import com.rf.tw_sample.domain.usecase.ProjectUseCase
@@ -29,20 +31,17 @@ class ProjectUseCaseTest {
                     Project(
                         "1",
                         "Project 1",
-                        "Amazing project",
-                        "https://lh3.googleusercontent.com/Xn1X_pIDKMxzvIyqCDT6l0_G8-3IAHkQe-LhD4OTYAF7qBlRUmBcpiBkWQIswyDtLqM=s360-rw"
+                        true
                     ),
                     Project(
                         "2",
                         "Project 2",
-                        "Amazing project 2",
-                        "https://lh3.googleusercontent.com/Xn1X_pIDKMxzvIyqCDT6l0_G8-3IAHkQe-LhD4OTYAF7qBlRUmBcpiBkWQIswyDtLqM=s360-rw"
+                        true
                     ),
                     Project(
                         "3",
                         "Project 3",
-                        "Amazing project 3",
-                        "https://lh3.googleusercontent.com/Xn1X_pIDKMxzvIyqCDT6l0_G8-3IAHkQe-LhD4OTYAF7qBlRUmBcpiBkWQIswyDtLqM=s360-rw"
+                        false
                     )
                 )
             )
